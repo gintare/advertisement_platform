@@ -22,8 +22,8 @@ function AddsPage() {
 
     return (<><h1>Advertisements</h1>
     <div>
-        {filteredAds.map((ad) => {
-            return <div>{ad.title}: {ad.description} , {ad.price} EUR, {ad.city}</div>
+        {filteredAds.map((ad, index) => {
+            return <div key={ad.id}>{ad.title}: {ad.description} , {ad.price} EUR, {ad.city}</div>
         })}
     </div>
     </>);
