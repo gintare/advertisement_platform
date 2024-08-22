@@ -34,3 +34,12 @@ export const getCategries = async () => {
     console.error(`Error fetching data : ${error.message}`);
   }
 };
+
+export const getAdvertisements = async () => {
+  try {
+    const resp = await axios.get(`${API_URL}/api/advertisements`);
+    return resp.data;
+  } catch (error) {
+    console.error(`Error fetching data : ${error.message}`);
+  }
+};

@@ -4,13 +4,16 @@ import { toast } from 'react-toastify';
 import { getUserNameFromToken } from '../../utils/jwt';
 
 import './Navigation.css';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import UserContext from '../../Context/UserContext/UserContext';
+import AdvertisementContext from '../../Context/AdvertisementContext/AdvertisementContext';
+import { getCategries } from '../../services/get';
 
 const Navigation = () => {
   const [searchText, setSearchText] = useState('');
   const [categories, setCategories] = useState([]);
   const { isLoggedIn, logoutHandler, userName, role } = useContext(UserContext);
+  const { advertisements, setAdvertisements, filteredAds, setFilteredAds } = useContext(AdvertisementContext);
 
   // const token = localStorage.getItem('token');
   // const navigate = useNavigate();
@@ -31,6 +34,22 @@ const Navigation = () => {
   };
 
   const accountPath = role === 'ADMIN' ? '/admin' : '/profile';
+
+  useEffect(() => {
+    let filtered = advertisements.filter((advertisement) => {
+      return (
+        advertisement.title.toLowerCase().includes(searchText.toLowerCase())
+      );
+    });
+
+    setFilteredAds(filtered);
+
+    const getCategories = async () => {
+      const cat = await getCategries();
+      setCategories(cat);
+    };
+    getCategories();
+  }, [searchText, setFilteredAds, advertisements]);
 
   return (
     <nav className='navbar navbar-expand-lg'>
@@ -65,12 +84,12 @@ const Navigation = () => {
             <select
               onChange={onCategorySelectChangeHandler}
               className='form-select categories-select'
-              aria-label='Select recipe category'
+              aria-label='Select ad category'
             >
-              <option value='0'>Select recipe category</option>
+              <option value='0'>Select advertisement category</option>
               {categories.map((category) => (
                 <option key={category.id} value={category.id}>
-                  {category.name}
+                  {category.title}
                 </option>
               ))}
             </select>
@@ -84,9 +103,9 @@ const Navigation = () => {
                 </NavLink>
                 <NavLink
                   className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
-                  to='/recipes'
+                  to='/ads'
                 >
-                  Recipes
+                  Advertisements
                 </NavLink>
                 <button
                   className='logout'
@@ -102,9 +121,9 @@ const Navigation = () => {
               <>
                 <NavLink
                   className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
-                  to='/recipes'
+                  to='/ads'
                 >
-                  Recipes
+                  Advertisements
                 </NavLink>
                 <NavLink
                   className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}

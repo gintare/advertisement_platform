@@ -29,7 +29,7 @@ function CategoriesPage() {
     <>
       <div className="container text-center">
         <div className="row">
-          <h1>Categies page</h1>
+          <h1>Categories page</h1>
           <div className="col-12 col-md-6">
             <CategoriesForm setUpdate={setUpdate}/>
           </div>

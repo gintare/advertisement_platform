@@ -44,3 +44,18 @@ export const postCategory = async (data) => {
   }
 };
 
+export const postAdvertisement = async (category_id, data) => {
+  try {
+    const userToken = getDefaultToken();
+    const response = await axios.post(`${API_URL}/api/categories/${category_id}/advertisements`, data, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+        'Cache-Control': 'no-cache',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(`Failed to save advertisement: ${error.message}`);
+  }
+};
+
