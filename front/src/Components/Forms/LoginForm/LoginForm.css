@@ -1,0 +1,25 @@
+.error {
+  color: var(--tomato);
+}
+
+.login-btn {
+  color: var(--black);
+  background-color: var(--lime-green);
+}
+
+.login-btn:hover {
+  background-color: var(--lime-green);
+}
+
+.nav-register {
+  color: var(--tomato);
+}
+
+.input-group-text {
+  background-color: var(--white);
+  cursor: pointer;
+}
+
+.password-input {
+  border-right: 0;
+}
