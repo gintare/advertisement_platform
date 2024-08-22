@@ -23,12 +23,7 @@ export const getOne = async (id) => {
 export const getCategries = async () => {
   try {
     const userToken = getDefaultToken();
-    const resp = await axios.get(`${API_URL}/api/categories`, {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-        'Cache-Control': 'no-cache',
-      },
-    });
+    const resp = await axios.get(`${API_URL}/api/categories`);
     return resp.data;
   } catch (error) {
     console.error(`Error fetching data : ${error.message}`);
